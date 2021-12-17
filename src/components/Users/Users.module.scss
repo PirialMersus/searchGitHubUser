@@ -1,0 +1,49 @@
+.usersAndFormContainer {
+  width: 350px;
+  padding: 5px;
+  margin-right: 10px;
+  >h3 {
+    margin-bottom: 10px;
+    font-size: 26px;
+  }
+
+
+  .forBorderWrap {
+    border: 1px solid #282c34;
+
+    .formContainer {
+      h4 {
+        margin-bottom: 6px;
+        margin-top: 10px;
+      }
+
+    }
+
+    .user {
+      border-top: 1px solid #282c34;
+
+      a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 5px;
+        color: #282c34;
+
+        img {
+          height: 40px;
+          border: 1px solid #282c34;
+        }
+
+        p {
+          display: inline-block;
+        }
+
+        .repos {
+
+        }
+      }
+    }
+  }
+
+}

@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom';
+import s from './App.module.scss';
+import Repos from './components/Repos/Repos';
+import Users from "./components/Users/Users";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <div className={s.app}>
+                <Users/>
+                <div className={s.reposContainer}>
+                    {/*<Route path='/profile/:userId?'><Repos/></Route>*/}
+                    {/*<Route path='/login' component={Login}/>*/}
+                    <Routes>
+                        <Route path="/" element={<div>Chose the user</div>} />
+                        <Route  path="/profile/:login" element={<Repos />} />
+                    </Routes>
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
