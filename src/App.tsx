@@ -13,7 +13,7 @@ function App() {
                     {/*<Route path='/profile/:userId?'><Repos/></Route>*/}
                     {/*<Route path='/login' component={Login}/>*/}
                     <Routes>
-                        <Route path="/" element={<div>Chose the user</div>} />
+                        <Route path="/searchGitHubUser" element={<Repos />} />
                         <Route  path="/profile/:login" element={<Repos />} />
                     </Routes>
                 </div>
