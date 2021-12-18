@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {findReposData, findUserData } from "../api/API";
+import {findReposData, findUserData} from "../api/API";
 import {AppThunk} from "./store";
 
 export type RepoType = {
@@ -105,7 +105,7 @@ export interface ReposState {
     repos: RepoType[];
 }
 
-const initialState: ReposState  = {
+const initialState: ReposState = {
     repos: [],
 };
 
@@ -129,31 +129,11 @@ export const reposReducer = (
     }
 };
 
-export const getReposThunkCreator = (user: string ): AppThunk => async dispatch => {
-    console.log('getReposThunkCreator')
+export const getReposThunkCreator = (user: string): AppThunk => async dispatch => {
     try {
-        // const response = await usersAPI.getUserProfile(user)
         const response = await findReposData(user)
-        console.log(response);
         dispatch(addRepos(response));
     } catch (e: any) {
         throw new Error(e);
     }
 }
-
-//     => {
-//     console.log('getUserThunkCreator')
-//     return (dispatch: Dispatch) => {
-//         findUserData(user)
-//             .then((data: any)=>{
-//                 console.log('data', data);
-//             })
-//
-//         // usersAPI.getUsers(currentPage, pageSize)
-//         //     .then((data: DataResponseType) => {
-//         //         dispatch(setUsers(data.items))
-//         //         dispatch(setTotalUsersCount(data.totalCount))
-//         //         dispatch(setIsFetching(false))
-//         //     })
-//     }
-// }

@@ -9,11 +9,10 @@ import {NavLink} from 'react-router-dom';
 function Users() {
     const dispatch = useDispatch();
 
-    const users = useSelector((state: AppStateType) => state.usersState.users
-    );
+    const users = useSelector((state: AppStateType) => state.usersState.users);
 
     const handleSubmit = (searchText: string) => {
-        if (searchText) {
+        if (searchText && !users.some(user => user.login?.toLowerCase() === searchText.toLowerCase())) {
             dispatch(getUserThunkCreator(searchText));
         }
     }
@@ -34,7 +33,6 @@ function Users() {
                                      alt="user"/> :
                                 <img src="https://cdn.freelogovectors.net/wp-content/uploads/2013/02/administrator.png"
                                      alt="user"/>}
-
                             <span>{user.login}</span>
                             <div className={s.repos}>Repos: {<span>{user.public_repos}</span>}</div>
                         </NavLink>

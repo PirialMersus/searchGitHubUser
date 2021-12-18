@@ -1,6 +1,4 @@
-import {Dispatch} from "redux";
 import { findUserData } from "../api/API";
-// import { usersAPI } from "../api/API";
 import {AppThunk} from "./store";
 
 export type UserType = {
@@ -47,19 +45,27 @@ const initialState: UsersState  = {
 };
 
 export type AddUserActionType = { type: "ADD_USER"; payload: UserType };
+export type SetUsersActionType = { type: "SET_USERS"; payload: UserType[] };
 
 export const addUser = (user: UserType): AddUserActionType => ({
     type: "ADD_USER",
     payload: user,
 });
+export const setUsers = (users: UserType[]): SetUsersActionType => ({
+    type: "SET_USERS",
+    payload: users,
+});
 
 export const usersReducer = (
     state = initialState,
-    action: AddUserActionType
+    action: AddUserActionType | SetUsersActionType
 ): UsersState => {
     switch (action.type) {
         case "ADD_USER": {
             return {...state, users: [action.payload, ...state.users]};
+        }
+        case "SET_USERS": {
+            return {...state, users: action.payload};
         }
         default:
             return state;
@@ -68,28 +74,9 @@ export const usersReducer = (
 
 export const getUserThunkCreator = (user: string): AppThunk => async dispatch => {
     try {
-        // const response = await usersAPI.getUserProfile(user)
         const response = await findUserData(user)
-        console.log(response);
         dispatch(addUser(response));
     } catch (e: any) {
         throw new Error(e);
     }
 }
-
-//     => {
-//     console.log('getUserThunkCreator')
-//     return (dispatch: Dispatch) => {
-//         findUserData(user)
-//             .then((data: any)=>{
-//                 console.log('data', data);
-//             })
-//
-//         // usersAPI.getUsers(currentPage, pageSize)
-//         //     .then((data: DataResponseType) => {
-//         //         dispatch(setUsers(data.items))
-//         //         dispatch(setTotalUsersCount(data.totalCount))
-//         //         dispatch(setIsFetching(false))
-//         //     })
-//     }
-// }

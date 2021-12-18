@@ -6,7 +6,7 @@ import {AppStateType} from "../../redux/store";
 import SearchUserForm from "../SearchUserForm/SearchUserForm";
 import {useParams} from "react-router-dom";
 import {NavLink} from 'react-router-dom';
-import {getReposThunkCreator, RepoType} from '../../redux/userRepos';
+import {getReposThunkCreator, RepoType} from '../../redux/reposReducer';
 
 function Repos() {
     const dispatch = useDispatch()
@@ -18,15 +18,7 @@ function Repos() {
     const [searchRepoValue, setSearchRepoValue] = useState<string>('');
     const {login} = useParams();
     const user = users.find(user => user.login?.toLowerCase() === login?.toLowerCase());
-    let updatedUser;
-    if (user && repos) {
-        updatedUser = user;
-    } else {
-        updatedUser = {
-            avatar_url: 'https://gba.business.ru/wp-content/uploads/2021/10/userm2.png',
 
-        }
-    }
 
     useEffect(() => {
         setUpdatedRepos(repos);
@@ -50,6 +42,12 @@ function Repos() {
         if (searchText) {
             dispatch(getUserThunkCreator(searchText));
         }
+    }
+
+    const onClickHandler = () => {
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('repos', JSON.stringify(repos));
+        localStorage.setItem('didUserLeavePageByClickingLink', 'true');
     }
 
     return (
@@ -78,7 +76,7 @@ function Repos() {
                         inputText={"Search for User's repositories"}/>
                 </div>
                 {updatedRepos.map(repo => {
-                    return <div className={s.repo} key={repo.id}>
+                    return <div onClick={onClickHandler} className={s.repo} key={repo.id}>
                         <a href={repo.html_url ? repo.html_url : 'https://github.com/'}>
                             <p>RepoName:</p>
                             <span>{repo.name}</span>
